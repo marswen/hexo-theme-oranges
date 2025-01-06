@@ -1,9 +1,21 @@
 <div class="container index">
   <div class="post-list">
     <!-- 遍历渲染文章 -->
-    <% page.posts.forEach(function(item) { %>
+    <%
+      // 创建一个新的数组来存储排序后的文章
+      let sortedPosts = page.posts.toArray(); // 复制原数组
+      sortedPosts = sortedPosts.sort(function(a, b) {
+        // 先根据 top 排序，置顶文章排在前面
+        if (a.top && !b.top) return -1;  // a 是置顶文章，排在前面
+        if (!a.top && b.top) return 1;   // b 是置顶文章，排在前面
+
+        // 如果两篇文章的 top 字段相同，按时间排序，最近的排在前面
+        return b.date - a.date;  // 如果 b 的日期更晚，返回负数，b 排在前面
+      });
+    %>
+
+    <% sortedPosts.forEach(function(item) { %>
       <div class="post-item" title="<%- item.title %>">
-        <div class="time-m-d"><%- item.date.format("YYYY-MM-DD") %></div>
         <div class="title">
           <a href="<%- url_for(item.path) %>">
             <% if(item.title !== "") { %>
@@ -17,6 +29,10 @@
             <% } %>
           </a>
         </div>
+        <div class="excerpt">
+          <%- strip_html(item.content).split('\n').slice(0, 3).join('\n') %>
+        </div>
+        <div class="time-m-d"><%- item.date.format("YYYY-MM-DD") %></div>
       </div>
     <% }) %>
   </div>

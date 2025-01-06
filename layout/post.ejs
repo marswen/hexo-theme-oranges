@@ -167,3 +167,62 @@
     <% } %>
   </div>
 <% } %>
+
+<% if (page.type === "projects") { %>
+  <!-- 项目页 url形式：https://yoursite/projects/ -->
+  <div class="container projects-index">
+
+    <!-- 文章卡片列表 -->
+    <div class="projects-list">
+      <%
+        // 使用 site.posts 获取所有文章并筛选 category 为 'project' 的文章
+        var projects = site.posts.filter(function(post) {
+          return post.categories.data.some(function(category) {
+            return category.name === 'project'; // 检查是否有类别为 'project'
+          });
+          return false; // 如果没有符合条件的类别，返回 false
+        });
+
+        projects.forEach(function(project) {
+      %>
+        <div class="project-card">
+            <% if (project.thumbnail) { %>
+              <img src="<%- project.thumbnail %>" alt="<%- project.title %>" class="thumbnail-image">
+            <% } else { %>
+              <span>No thumbnail available</span>
+            <% } %>
+          <div class="project-card-right">
+            <!-- 文章标题 -->
+            <h2><a href="<%- url_for(project.path) %>"><%- project.title %></a></h2>
+            <!-- 文章简介 -->
+            <p class="project-excerpt"><%- project.excerpt %></p>
+            <!-- 下载链接 -->
+            <p class="project-download">
+              <% if (project.downloadLink) { %>
+                <div class="download-and-qr">
+                  <!-- 下载按钮 -->
+                  <a href="<%- project.downloadLink %>" target="_blank" class="download-button">
+                    <i class="iconfont icon-android"></i> <!-- 安卓图标 -->
+                    Download
+                  </a>
+
+                  <!-- 二维码按钮 -->
+                  <button class="qr-button" data-url="<%- project.downloadLink %>">
+                    <i class="iconfont icon-qrcode"></i> <!-- 二维码图标 -->
+                  </button>
+
+                  <!-- 显示二维码 -->
+                  <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=<%- project.downloadLink %>&size=150x150" alt="二维码">
+                  </div>
+                </div>
+              <% } else { %>
+                <span>No download link available</span>
+              <% } %>
+            </p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+<% } %>
