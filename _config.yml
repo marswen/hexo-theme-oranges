@@ -178,17 +178,6 @@ footer:
       icon: rss
       path: /atom.xml
 
-  more:
-    # 支持变量显示，可自定义扩展，具体见主题/layout/_partial/footer.ejs
-    # 一般用来显示根据各种场景需要切换的文本，如时间年份
-    # 如：{thisYear} 会被替换为今年年份
-    -
-      name: Copyright © {thisYear} marswen
-      path: https://github.com/marswen
-    -
-      name: Theme by Oranges | Powered by Hexo
-      path: https://github.com/zchengsite/hexo-theme-oranges
-
   # 浏览量统计
   # http://busuanzi.ibruce.info/
   views:
@@ -285,7 +274,7 @@ cdns:
       url: https://cdn.jsdelivr.net/npm/@waline/client@2.5.1/dist/legacy.min.js
 
 # 主题色
-themeColor: '#808080'
+themeColor: '#ed7d32'
 
 feed:
   type: atom

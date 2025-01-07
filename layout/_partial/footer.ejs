@@ -1,14 +1,3 @@
-<%
-  const footerMoreVars = [
-    {
-      name: '{thisYear}',
-      desc: '今年年份',
-      func: () => {
-        return new Date().getFullYear()
-      }
-    }
-  ]
-%>
 <div class="footer">
   <div class="social">
     <ul>
@@ -27,22 +16,14 @@
         <% } %>
     </ul>
   </div>
-  <% for(let item of theme.footer.more){ %>
-    <%
-      footerMoreVars.forEach(i => {
-        if (item.name.includes(i.name)) {
-          item.name = item.name.replace(i.name, i.func)
-        }
-      })
-    %>
-    <div class="footer-more">
-      <% if (item.path) { %>
-        <a href="<%- item.path %>"><%- item.name %></a>
-      <% } else { %>
-        <%- item.name %>
-      <% } %>  
-    </div>
-  <% } %>
+
+  <div class="footer-more">
+    Copyright © <%- new Date().getFullYear() %> <a href="https://github.com/marswen">Marswen</a>
+  </div>
+  <div class="footer-more">
+    Theme by <a href="https://github.com/zchengsite/hexo-theme-oranges">Oranges</a> | Powered by <a href="https://hexo.io/">Hexo</a>
+  </div>
+
   <% if (theme.footer.views && theme.footer.views.enable) { %>
     <div class="footer-views">
       <% for(let item of theme.footer.views.item) {
