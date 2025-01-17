@@ -27,7 +27,7 @@ favicon:
 # 用户头像与昵称
 avatar:
   author_photo: /images/avatar.png
-  author_nickname: Oranges
+  author_nickname: Dong Wen
   path: /
 
 # Google 分析
@@ -288,3 +288,12 @@ feed:
   icon: icon.png
   autodiscovery: true
   template:
+
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+  wpm: 275
+  suffix: "mins"

@@ -99,6 +99,13 @@
           }
         } %>
       </div>
+
+      <div class="post-count">
+          <span class="post-wordcount">
+            Estimated Reading Time: <%= symbolsTime(page.content) %>
+          </span>
+      </div>
+
       <div class="markdown-body">
         <%- page.content %>
       </div>
@@ -162,27 +169,40 @@
             <p class="project-excerpt"><%- project.excerpt %></p>
             <!-- 下载链接 -->
             <p class="project-download">
-              <% if (project.downloadLink) { %>
+              <% if (project.androidDownloadLink) { %>
                 <div class="download-and-qr">
                   <!-- 下载按钮 -->
-                  <a href="<%- project.downloadLink %>" target="_blank" class="download-button">
+                  <a href="<%- project.androidDownloadLink %>" target="_blank" class="download-button">
                     <i class="iconfont icon-android"></i> <!-- 安卓图标 -->
-                    Download
+                    下载
                   </a>
 
                   <!-- 二维码按钮 -->
-                  <button class="qr-button" data-url="<%- project.downloadLink %>">
+                  <button class="qr-button">
                     <i class="iconfont icon-qrcode"></i> <!-- 二维码图标 -->
                   </button>
 
                   <!-- 显示二维码 -->
                   <div class="qr-code">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=<%- project.downloadLink %>&size=150x150" alt="二维码">
+                    <img id="qrCode" src="" alt="二维码">
                   </div>
+                  <script>
+                    var baseUrl = window.location.origin;
+                    var androidDownloadLink = "<%= project.androidDownloadLink %>";
+                    var qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?data=" + encodeURIComponent(baseUrl + androidDownloadLink) + "&size=150x150";
+                    document.getElementById('qrCode').src = qrCodeUrl;
+                  </script>
                 </div>
-              <% } else { %>
-                <span>No download link available</span>
               <% } %>
+
+              <% if (project.pageLink) { %>
+                <div class="download-and-qr">
+                  <a href="<%- project.pageLink %>" target="_blank" class="download-button">
+                    前往
+                  </a>
+                </div>
+              <% } %>
+
             </p>
           </div>
         </div>
